@@ -11,7 +11,6 @@ export class ModalContentComponent {
   constructor(private modalService: ModalService) {}
 
   close() {
-    console.log('Wanna close but it wont');
     const { closeModal } = createModal(
       ModalContentComponent,
       this.modalService

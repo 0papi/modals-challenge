@@ -13,13 +13,17 @@ export class AppComponent {
 
   constructor(private modalService: ModalService) {}
 
+  // pass component to createModal function and grab openModal from it
+  // run open modalfn to see if modal shows up
+  // NB: Bind openModal to html element (button) through click event
   openModal() {
     const { openModal } = createModal(ModalContentComponent, this.modalService);
     openModal();
   }
 
+  // bind fn to close modal to button component
+  // NB: Hitting ESC key on keyboard should close modal too
   close() {
-    console.log('Wanna close but it wont');
     const { closeModal } = createModal(
       ModalContentComponent,
       this.modalService

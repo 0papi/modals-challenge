@@ -4,6 +4,7 @@ import {
   ApplicationRef,
   Injector,
   EmbeddedViewRef,
+  ComponentRef,
 } from '@angular/core';
 import { ModalWrapperComponentComponent } from '../components/modal-wrapper-component/modal-wrapper-component.component';
 
@@ -11,6 +12,9 @@ import { ModalWrapperComponentComponent } from '../components/modal-wrapper-comp
   providedIn: 'root',
 })
 export class ModalService {
+  private modalComponentRef: ComponentRef<ModalWrapperComponentComponent> | null =
+    null;
+
   constructor(
     private componentFactoryResolver: ComponentFactoryResolver,
     private appRef: ApplicationRef,
@@ -22,15 +26,32 @@ export class ModalService {
     const factory = this.componentFactoryResolver.resolveComponentFactory(
       ModalWrapperComponentComponent
     );
-    const componentRef = factory.create(this.injector);
+    this.modalComponentRef = factory.create(this.injector);
 
     // Set the content component for the modal component
-    componentRef.instance.contentComponent = contentComponent;
+    this.modalComponentRef.instance.contentComponent = contentComponent;
 
     // Add the modal component to the DOM
-    this.appRef.attachView(componentRef.hostView);
-    const domElem = (componentRef.hostView as EmbeddedViewRef<any>)
+    this.appRef.attachView(this.modalComponentRef.hostView);
+    const domElem = (this.modalComponentRef.hostView as EmbeddedViewRef<any>)
       .rootNodes[0] as HTMLElement;
     document.body.appendChild(domElem);
+
+    // Attach an event listener to the document object to listen for 'keydown' events
+    document.addEventListener('keydown', this.handleKeyDown);
   }
+
+  closeModal(): void {
+    if (this.modalComponentRef) {
+      this.appRef.detachView(this.modalComponentRef.hostView);
+      this.modalComponentRef.destroy();
+      this.modalComponentRef = null;
+    }
+  }
+
+  private handleKeyDown = (event: KeyboardEvent) => {
+    if (event.keyCode === 27) {
+      this.closeModal();
+    }
+  };
 }

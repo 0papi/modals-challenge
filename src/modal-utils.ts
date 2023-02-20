@@ -1,16 +1,18 @@
 import { ModalService } from './app/services/modal-service.service';
 
+/**
+ * @description this function handles that receives a component and turns it into a modal
+ * @param component
+ * @param modalService
+ * @returns { openModal & closeModal }
+ */
 export function createModal(component: any, modalService: ModalService) {
-  let modalRef;
-
   const openModal = function () {
-    modalRef = modalService.openModal(component);
+    modalService.openModal(component);
   };
 
   const closeModal = function () {
-    if (modalRef) {
-      modalRef.destroy();
-    }
+    modalService.closeModal();
   };
 
   return { openModal, closeModal };
