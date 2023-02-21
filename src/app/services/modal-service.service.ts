@@ -35,11 +35,8 @@ export class ModalService {
     // set the content of the modal to the component passed by user
     this.modalComponentRef.instance.contentComponent = contentComponent;
 
-    // attach modal component to the DOM
     this.appRef.attachView(this.modalComponentRef.hostView);
-    const domElem = (this.modalComponentRef.hostView as EmbeddedViewRef<any>)
-      .rootNodes[0] as HTMLElement;
-    document.body.appendChild(domElem);
+    document.body.appendChild(this.modalComponentRef.location.nativeElement);
 
     // Attach an event listener to the document object to listen for 'keydown' event
     // enable user to remove modal by pressing ESC key on keyboard
