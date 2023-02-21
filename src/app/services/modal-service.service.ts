@@ -32,10 +32,10 @@ export class ModalService {
     );
     this.modalComponentRef = factory.create(this.injector);
 
-    // Set the content component for the modal component
+    // set the content of the modal to the component passed by user
     this.modalComponentRef.instance.contentComponent = contentComponent;
 
-    // Add the modal component to the DOM
+    // attach modal component to the DOM
     this.appRef.attachView(this.modalComponentRef.hostView);
     const domElem = (this.modalComponentRef.hostView as EmbeddedViewRef<any>)
       .rootNodes[0] as HTMLElement;
