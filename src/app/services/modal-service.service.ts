@@ -41,7 +41,8 @@ export class ModalService {
       .rootNodes[0] as HTMLElement;
     document.body.appendChild(domElem);
 
-    // Attach an event listener to the document object to listen for 'keydown' events
+    // Attach an event listener to the document object to listen for 'keydown' event
+    // enable user to remove modal by pressing ESC key on keyboard
     document.addEventListener('keydown', this.handleKeyDown);
   }
 
