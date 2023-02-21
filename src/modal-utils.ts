@@ -1,7 +1,7 @@
 import { ModalService } from './app/services/modal-service.service';
 
 /**
- * @description this function handles that receives a component and turns it into a modal
+ * @description a function that receives a component and turns it into a modal
  * @param component
  * @param modalService
  * @returns { openModal & closeModal }

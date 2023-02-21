@@ -21,8 +21,12 @@ export class ModalService {
     private injector: Injector
   ) {}
 
+  /**
+   * @description this function takes a component and turns it into a modal
+   * @param contentComponent
+   */
   openModal(contentComponent: any): void {
-    // Create a new instance of the modal component
+    // create an instance of the modal component
     const factory = this.componentFactoryResolver.resolveComponentFactory(
       ModalWrapperComponentComponent
     );
@@ -41,6 +45,9 @@ export class ModalService {
     document.addEventListener('keydown', this.handleKeyDown);
   }
 
+  /**
+   * @description this function closes the modal
+   */
   closeModal(): void {
     if (this.modalComponentRef) {
       this.appRef.detachView(this.modalComponentRef.hostView);
@@ -49,8 +56,12 @@ export class ModalService {
     }
   }
 
+  /**
+   * @description this function allows you to close the modal by using the ESC key on the keyboard
+   * @param event
+   */
   private handleKeyDown = (event: KeyboardEvent) => {
-    if (event.keyCode === 27) {
+    if (event.key === 'Escape') {
       this.closeModal();
     }
   };
